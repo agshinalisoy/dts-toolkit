@@ -1,11 +1,20 @@
+// ! General Functions
+
+function appendItems(element1, element2) {
+  let target = document.getElementById(element1);
+  let append = document.getElementById(element2);
+  target.appendChild(append);
+}
+
 // ! Component Generator Class Area
 
 class ComponentGen {
-  static createDiv(id, className) {
+  static createDiv(id, className, appendElement) {
     var div = document.createElement("div");
     div.classList.add(className);
     div.id = id;
     document.body.appendChild(div);
+    div.appendItems(appendElement);
   }
   static createCustomText(content, id, className) {
     var text = document.createElement("p");
@@ -107,6 +116,43 @@ class CSSGen {
     let target = document.getElementById(targetElement);
     target.style.margin = margin;
   }
+  static setGradientBackground(targetElement, degree, colors) {
+    var target = document.getElementById(targetElement);
+    target.style.backgroundImage = `linear-gradient(${degree}, ${colors})`;
+  }
+  static setShadow(targetElement, type, config, color) {
+    var target = document.getElementById(targetElement);
+    switch (type) {
+      case "box":
+        target.style.boxShadow = `${config}, ${color}`;
+        break;
+      case "inner":
+        target.style.boxShadow = `inner ${config}, ${color}`;
+        break;
+      case "text":
+        target.style.textShadow = `${config} ${color}`;
+        break;
+    }
+  }
+  static setLongShadow(targetElement, style, length, color) {
+    let target = document.getElementById(targetElement);
+    let shadow = "";
+    for (let i = 1; i < length; i++) {
+      shadow += `${i}px ${i}px ${color}`;
+      if (i != length - 1) {
+        shadow += ", ";
+      }
+    }
+    switch (style) {
+      case "text":
+        target.style.textShadow = shadow;
+        break;
+      case "box":
+        target.style.boxShadow = shadow;
+        break;
+    }
+    console.log(shadow);
+  }
 }
 
 // ! Display Generator Class Area
@@ -163,7 +209,14 @@ class Display {
     let target = document.getElementById(targetElement);
     target.style.flexWrap = wrap;
   }
+  static setFlexCenter(targetElement) {
+    let target = document.getElementById(targetElement);
+    target.style.alignItems = "center";
+  }
+  static setFlexSpacing(targetElement, number) {
+    let target = document.getElementById(targetElement);
+    target.style.margin = `0px ${number}`;
+  }
 }
+
 // ! TESTING AREA
-ComponentGen.createCustomText("this is a text", "test", "test-class");
-CSSGen.setOpacity("test", "1");
