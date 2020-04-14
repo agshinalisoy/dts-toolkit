@@ -30,12 +30,12 @@ class ComponentGen {
     heading.innerHTML = content;
     document.body.appendChild(heading);
   }
-  static createHeader(content, id, className) {
+  static createHeader(id, className, appendElement) {
     var header = document.createElement("header");
     header.classList.add(className);
     header.id = id;
-    header.innerHTML = content;
     document.body.appendChild(header);
+    header.appendElement(appendElement);
   }
   static createNavbar(content, id, className) {
     var navbar = document.createElement("navbar");
@@ -71,11 +71,6 @@ class CSSGen {
     target.style.fontFamily = font;
     target.style.fontSize = size;
   }
-  // TODO: Finish this Function.
-  // static setGradient(targetElement, degree, color1, color2) {
-  // let target = document.getElementById(targetElement);
-  // target.style.backgroundImage = `linear-gradient(${degree}, ${color1}, ${color2};`;
-  // }
   static setText(targetElement, alignment, decoration, spacing, height, color) {
     let target = document.getElementById(targetElement);
     target.style.textAlign = alignment;
@@ -134,7 +129,7 @@ class CSSGen {
         break;
     }
   }
-  static setLongShadow(targetElement, style, length, color) {
+  static setLongShadow(targetElement, style, color, length) {
     let target = document.getElementById(targetElement);
     let shadow = "";
     for (let i = 1; i < length; i++) {
@@ -157,13 +152,12 @@ class CSSGen {
 
 // ! Display Generator Class Area
 class Display {
-  static setGridDisplay(targetElement, row, column, gap, template) {
+  static setGridDisplay(targetElement, row, column, gap) {
     let target = document.getElementById(targetElement);
     target.style.display = grid;
     target.style.gridRow = row;
     target.style.gridColumn = column;
     target.style.gridGap = gap;
-    target.style.gridTemplate = template;
   }
   static setGrid(targetElement) {
     let target = document.getElementById(targetElement);
@@ -180,10 +174,6 @@ class Display {
   static setGridGap(targetElement, gap) {
     let target = document.getElementById(targetElement);
     target.style.gridGap = gap;
-  }
-  static setGridRow(targetElement, template) {
-    let target = document.getElementById(targetElement);
-    target.style.gridTemplate = template;
   }
   // TODO: Add Spacing value
   static setFlexDisplay(targetElement, direction, growth, wrap) {
@@ -212,10 +202,6 @@ class Display {
   static setFlexCenter(targetElement) {
     let target = document.getElementById(targetElement);
     target.style.alignItems = "center";
-  }
-  static setFlexSpacing(targetElement, number) {
-    let target = document.getElementById(targetElement);
-    target.style.margin = `0px ${number}`;
   }
 }
 
